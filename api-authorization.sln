@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api-authorization", "api-authorization\api-authorization.csproj", "{2900ABF2-6447-4D07-9491-0EC2637B816B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "authorize-client", "authorize-client\authorize-client.csproj", "{801006C2-B82A-4845-A889-7FF9B68EE1C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "authorize-server", "authorize-server\authorize-server.csproj", "{3CCD1357-3AF5-4913-85FD-CD9405751317}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2900ABF2-6447-4D07-9491-0EC2637B816B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2900ABF2-6447-4D07-9491-0EC2637B816B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2900ABF2-6447-4D07-9491-0EC2637B816B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2900ABF2-6447-4D07-9491-0EC2637B816B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801006C2-B82A-4845-A889-7FF9B68EE1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801006C2-B82A-4845-A889-7FF9B68EE1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801006C2-B82A-4845-A889-7FF9B68EE1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801006C2-B82A-4845-A889-7FF9B68EE1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CCD1357-3AF5-4913-85FD-CD9405751317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CCD1357-3AF5-4913-85FD-CD9405751317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CCD1357-3AF5-4913-85FD-CD9405751317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CCD1357-3AF5-4913-85FD-CD9405751317}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+
+    <button class="btn-register">register</button>
+    <button class="btn-get-values">get values</button>
+    <button class="btn-clear-session">clear session</button>
+
+    <script src="Scripts/jquery-2.1.4.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var api = 'http://localhost:60847';
+
+            $('.btn-register').click(function () {
+
+                $.ajax({
+                    url: api + '/api/account/register',
+                    method: 'post',
+                    data: { email: 'oclockvn@gmail.com', password: '123456', confirmPassword: '123456' },
+                    success: function () {
+                        console.log('register success');
+                    },
+                    error: function () {
+                        console.log('register error');
+                    }
+                });
+
+            });
+
+            var login = function () {
+                var req= $.ajax({
+                    url: api + '/token',
+                    method: 'post',
+                    data: { username: 'oclockvn@gmail.com', password: '123456', grant_type: 'password' },
+                    success: function (resp) {
+                        console.log('login success');
+                        sessionStorage.setItem('token', resp.access_token);
+                    },
+                    error: function () {
+                        console.log('login fail');
+                    }
+                });
+
+                return req;
+            }
+            
+            var getValues = function () {
+                var req = $.ajax({
+                    url: api + '/api/values',
+                    method: 'get',
+                    headers: {
+                        Authorization: 'Bearer ' + sessionStorage.getItem('token')
+                    },
+                    success: function (values) {
+                        console.log('get values success', values);
+                    },
+                    error: function (jqXHR, stt) {
+                        console.log('get values error', jqXHR.statusText || stt);
+                    }
+                });
+
+                return req;
+            }
+
+            $('.btn-get-values').click(function () {
+
+                $.when(login()).then(getValues);
+
+            });
+
+            $('.btn-clear-session').click(function () {
+                sessionStorage.clear();
+            });
+
+        });
+    </script>
+
+</body>
+</html>
