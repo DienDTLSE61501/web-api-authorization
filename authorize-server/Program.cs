@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace authorize_server
 {
@@ -14,20 +15,14 @@ namespace authorize_server
         {
             var api = new ApiHelper("http://localhost:60847/".TrimEnd('/'));
 
-            var values = api.Get("/api/values");
+            var login = api.Post("/token", new StringContent(string.Format("username={0}&password={1}&grant_type=password", "oclockvn@gmail.com", "123456")));
 
-            var login = api.Post("token", new
-            {
-                username = "oclockvn@gmail.com",
-                password = "123456",
-                grant_type = "password"
-            });
+            var jss = new JavaScriptSerializer();
+            var json = jss.Deserialize<dynamic>(login.ToString());
 
-            
+            var token = json["access_token"];
 
-            var login2 = api.Post("/token", new StringContent(string.Format("username={0}&password={1}&grant_type=password","oclockvn@gmail.com", "123456")));
-
-            var login3 = api.Post("/token", new StringContent(string.Format("username={0}&password={1}&grant_type=password", "oclockvn@gmail.com", "123456")));
+            var values = api.Get("/api/values", token);
         }
     }
 
@@ -39,11 +34,16 @@ namespace authorize_server
         {
             _client = new HttpClient();
             _client.BaseAddress = new Uri(baseURL);
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));           
         }
 
-        public List<object> Get(string request)
+        public List<object> Get(string request, string token="")
         {
+            if (!string.IsNullOrEmpty(token))
+            {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+
             var resp = _client.GetAsync(request).Result;
 
             if (!resp.IsSuccessStatusCode)
@@ -61,8 +61,13 @@ namespace authorize_server
             }
         }
 
-        public object Post(string request, object data)
+        public object Post(string request, object data, string token="")
         {
+            if (!string.IsNullOrEmpty(token))
+            {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+
             var resp = _client.PostAsync(request, data as HttpContent).Result;
             // var resp = _client.PostAsJsonAsync(request, data).Result;
 
